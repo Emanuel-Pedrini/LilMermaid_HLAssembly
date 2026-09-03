@@ -21,6 +21,15 @@ char* Substring(char* String, Usize Start, Usize End)
     return NULL;
 }
 
+Bool Is(const char* Word, const char* Src) {
+    if (strcmp(Word, Src) == 0) 
+    {
+        return True;
+    }
+    return False;
+}
+
+
 Bool EndsWith(char* String, char* Suffix)
 {
     Usize preffixSize = strlen(Suffix);

@@ -11,6 +11,7 @@ Bool IsAlphabetic(const char Char);
 Bool IsAlphaNumerical(const char Char);
 Bool IsIndentifierChar(const char Char);
 Bool IsSpace(const char Char);
+Bool Is(const char* Word, const char* Src);
 
 typedef struct {
     Usize Size;

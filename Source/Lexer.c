@@ -264,15 +264,6 @@ LM_Token* ReadSpecial(LexerState* MermaidState)
     }
     return CreateToken(Type, Start, Length);
 }
-
-Bool Is(const char* Word, const char* Src) {
-    if (strcmp(Word, Src) == 0) 
-    {
-        return True;
-    }
-    return False;
-}
-
 LM_TokenType Indentify(const char* Word) 
 {
     if (Is(Word, RETURN_KEYWORD)) 

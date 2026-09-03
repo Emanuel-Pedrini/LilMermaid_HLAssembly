@@ -6,5 +6,8 @@
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include "External/dirent.h"
 
 #endif
