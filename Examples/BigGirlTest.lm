@@ -1,0 +1,7 @@
+@add
+    .rax = 9
+    .rax + 4 
+    .rax + 3; .rax = 8
+    .rax ++
+    ret .rax
+

@@ -1,0 +1,4 @@
+@initialize
+    ## Return THIS, bimbo!
+    $add_one
+    ret 9.7

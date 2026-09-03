@@ -1,0 +1,8 @@
+## Constants Here
+## Commentary
+def EULER 2.718
+def W 1280
+def H 720
+@simple_func 
+    .rbx = 0x400
+    [.rbx] = 4 * 5 - 8
