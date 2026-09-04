@@ -4,7 +4,7 @@
 #include "External/Libraries.h"
 #include "Headers/StringUtilities.h"
 
-char* OpenFile(char* ArchivePath, Usize Capacity) {
+char* OpenFileNWindows(char* ArchivePath, Usize Capacity) {
     Usize capacity = Capacity;
     int size = 0;
 
@@ -44,7 +44,7 @@ char* OpenFile(char* ArchivePath, Usize Capacity) {
 LilMermaid_CodeObject* OpenMermaidFile(char* ArchivePath) 
 {
     LilMermaid_CodeObject* NewCodeObject = malloc(sizeof(LilMermaid_CodeObject));
-    char* Code = OpenFile(ArchivePath, 1024);
+    char* Code = OpenFileNWindows(ArchivePath, 1024);
     char* Path = ArchivePath;
     char* Name = File(ArchivePath);
     NewCodeObject -> Code = Code;

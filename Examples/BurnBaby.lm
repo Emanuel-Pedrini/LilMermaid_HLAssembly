@@ -3,7 +3,8 @@ def PI 3.14
 @PlusOne
     .rcx ++
     .rdx --
-    ? $PlusOne
+    rdx != 0 ? 
+    if $PlusOne
 
 @Filling
     .rdx --
@@ -18,7 +19,8 @@ def PI 3.14
     .rbx = 0x4000
 
     {
-        0b00100010, 0b01111111
+        0b00100010, 
+        0b01111111
         ## Ignore this, just a test.
     }
     ## No more writ instruction
@@ -33,7 +35,7 @@ def PI 3.14
     [.rax + 4] = .rbx
 
     .rbx <> .rax ## Swap
-    .rdx = <.rbx - 8>
+    .rdx = .rbx - 8
 
     .rdx = 512 - __OFFSET__
     $Filling

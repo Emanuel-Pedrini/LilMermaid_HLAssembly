@@ -2,7 +2,7 @@
 #include "Flounder/Flounder_Headers/Flounder_StringUtilities.h"
 #include "Control/VersionControl.h"
 
-#define SUBDIRECTORY_NAME "src/"
+#define DIRECTORY_NAME "src/"
 #define TARGET_DIRECTORY_NAME "bin/"
 
 #define INITIALIZE_KEYWORD "init"
@@ -13,7 +13,10 @@
 #define BUILD_KEYWORD "make"
 #define RUN_KEYWORD "go"
 
-#define DEPENDENCIES_NAME "deps.flmk"
+#define SPECS_NAME "proj.toml"
+
+#define BUILT_IN_PROGRAM_FILE "main.lm"
+
 #define DEPENDECIES_TEXT "__INFORMATION__\nproject_name \"%s\"\nlil_mermaid_version \"%s\"\n"
 
 #define RED   "\x1b[31m"
@@ -31,54 +34,41 @@ int MakeFile(char* FileName, char* InitialText)
     fclose(File);
     return 0;
 }
+int MakeBuiltinFile(String* Path, String* FileName, char* InitialText) 
+{
+    String* TotalPath = ConcatStr(Path, FileName);
+    MakeFile(TotalPath -> Chars, InitialText);
+}
 
-int SetupFlounder(char* DirectoryName) 
+int SetupFlounder(char* DirectoryName)
 {
     int CheckCreation = 0;
-    String* MainDirectoryName = FromStr("");
+    String* MainDirectory = FromStr("");
 
     if (!Is(DirectoryName, "")) {
-        MainDirectoryName = FromStr(DirectoryName);
-        CheckCreation = mkdir(MainDirectoryName -> Chars);
-        AddStr(MainDirectoryName, '/');
+        MainDirectory = FromStr(DirectoryName);
+        CheckCreation = mkdir(MainDirectory -> Chars);
+        AddStr(MainDirectory, '/');
     }
     else {
-        MainDirectoryName = FromStr("");
+        MainDirectory = FromStr("");
         int CheckCreation = 0;
     }
     
-    String* SubPath = FromStr(SUBDIRECTORY_NAME);
-    String* SubDirectory = ConcatStr(MainDirectoryName, SubPath);
+    String* SourceDirectory = ConcatStr(MainDirectory, FromStr(DIRECTORY_NAME));
 
-    String* TargetSubPath = FromStr(TARGET_DIRECTORY_NAME);
-    String* TargetSubDirectory = ConcatStr(MainDirectoryName, TargetSubPath);
-
-    String* GitIgnore = FromStr(".gitignore");
-    String* GitIgnorePath = ConcatStr(MainDirectoryName, GitIgnore);
-
-    String* Dependecies = FromStr(DEPENDENCIES_NAME);
-    String* DependenciesPath = ConcatStr(MainDirectoryName, Dependecies);
-
-    String* MainName = FromStr("main.lm");
-    String* MainPath = ConcatStr(SubDirectory, MainName);
+    String* TargetDirectory = ConcatStr(MainDirectory, FromStr(TARGET_DIRECTORY_NAME));
 
     if (CheckCreation == 0) 
     {
         printf(GREEN "Your directory was created sucessfully!" RESET);
-        int SubDirectoryCreation = mkdir(SubDirectory -> Chars);
-        int TargetDirectoryCreation = mkdir(TargetSubDirectory -> Chars);
+        int DirectoryCreation = mkdir(SourceDirectory -> Chars);
+        int TargetDirectoryCreation = mkdir(TargetDirectory -> Chars);
 
-        MakeFile(GitIgnorePath -> Chars, "");
-        MakeFile(MainPath -> Chars, "@main\n  ret 0");
+        MakeBuiltinFile(MainDirectory, FromStr(".gitignore"), "");
+        MakeBuiltinFile(MainDirectory, FromStr(SPECS_NAME), "");
 
-        int size = snprintf(NULL, 0, DEPENDECIES_TEXT, DirectoryName, LILMERMAID_VERSION);
-        char* t = (char*)malloc(size + 1);
-        if (t != NULL) 
-        {
-            snprintf(t, size + 1, DEPENDECIES_TEXT, DirectoryName, LILMERMAID_VERSION);
-            MakeFile(DependenciesPath -> Chars, t);
-        }
-
+        MakeBuiltinFile(SourceDirectory, FromStr(BUILT_IN_PROGRAM_FILE), "@main\n    ret 0");
         return 1;
     } 
     else 
@@ -106,7 +96,6 @@ void ListFolderFiles(const char* Folder)
     while ((entry = readdir(Directory)) != NULL) {
         if (EndsWith(entry -> d_name, ".lm")) 
         {
-            printf("%s\n", entry -> d_name);
         }
     }
     closedir(Directory);
