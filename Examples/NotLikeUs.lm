@@ -1,7 +1,0 @@
-@Like_us
-    .rcx = 4
-    .rax = .rcx / 2
-    .rbx = (.rcx / 3) * 2
-    .rax == .rbx
-    if $Like_us
-    ret

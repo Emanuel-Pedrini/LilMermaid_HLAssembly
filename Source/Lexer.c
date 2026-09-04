@@ -264,6 +264,7 @@ LM_Token* ReadSpecial(LexerState* MermaidState)
     }
     return CreateToken(Type, Start, Length);
 }
+
 LM_TokenType Indentify(const char* Word) 
 {
     if (Is(Word, RETURN_KEYWORD)) 
@@ -371,8 +372,8 @@ LM_Token* ReadArchiveMarker(LexerState* MermaidState)
         Length++;
     }
     char* Word =  Substring(MermaidState -> Code -> Chars, Start, (Start + Length));
-
-    return CreateToken(Tk_ArchiveMarker, Start, Length + 1);
+    Next(MermaidState, 1);
+    return CreateToken(Tk_ArchiveMarker, Start, Length);
     MermaidState -> Line = 1;
 }
 

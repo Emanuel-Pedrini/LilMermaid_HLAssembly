@@ -1,43 +1,16 @@
-def PI 3.14
+## Example
+@funny_func()
+    .reg(c) = .reg(a) + .reg(b)
 
-@PlusOne
-    .rcx ++
-    .rdx --
-    rdx != 0 ? 
-    if $PlusOne
+@fuck()
+    go hello
 
-@Filling
-    .rdx --
-    {
-        0b00000000
-    }
-    ? $Filling
+@hello()
+    go fuck
 
-@add_one
-    ## This a commentary
-    .rax = 567
-    .rbx = 0x4000
-
-    {
-        0b00100010, 
-        0b01111111
-        ## Ignore this, just a test.
-    }
-    ## No more writ instruction
-    
-    .rdx = 234
-    $PlusOne
-
-    [.rbx] = .rax
-    .rax = .rbx
-    .rbx = (69 * (6 - 9 + 8)) / 6
-
-    [.rax + 4] = .rbx
-
-    .rbx <> .rax ## Swap
-    .rdx = .rbx - 8
-
-    .rdx = 512 - __OFFSET__
-    $Filling
-
-    ret .rax
+@main()
+    .reg(a) = 43(i32)
+    .reg(b) = 958(i32) 
+    funny_func() ## 1001
+    .reg(c) ++ ## 1002
+    go fuck

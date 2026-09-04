@@ -6,7 +6,7 @@
 #include "Headers/Parser.h"
 #include "Headers/Cleaner.h"
 #include "Headers/Reader.h"
-#include "Headers/Compiler.h"
+#include "Headers/RustLibrary.h"
 
 int main(int argc, char* argv[]) {
     CompAttributes* CompilationAttributes = Reader(argc, argv);
@@ -18,5 +18,6 @@ int main(int argc, char* argv[]) {
     Clean(&BigGirl);
     Tokenize(&BigGirl, &Tokens);
     Parsenize(&BigGirl, &Tokens);
+    RustPrint(24, 57);
     return 0;
 }
