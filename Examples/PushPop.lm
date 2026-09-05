@@ -1,7 +1,0 @@
-@bubble_gum 
-    .rax = 64
-    <- .rax ## Push stack
-    
-    .rax = 178
-    -> .rax ## Pop stack
-    ret

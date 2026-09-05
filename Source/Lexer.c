@@ -19,7 +19,7 @@ void Next(LexerState* MermaidState, int Offset) {
 void Skip(LexerState* MermaidState) {
     while (1) 
     {
-        if (ActualChar(MermaidState) == '#' && Peek(MermaidState, 1) == '#') 
+        if (ActualChar(MermaidState) == '/' && Peek(MermaidState, 1) == '/') 
         {
             while (ActualChar(MermaidState) != '\n' && ActualChar(MermaidState) != '\0') {
                 if (ActualChar(MermaidState) == '\n') 
@@ -28,6 +28,18 @@ void Skip(LexerState* MermaidState) {
                 }
                 Next(MermaidState, 1);
             }
+        }
+
+        if (ActualChar(MermaidState) == '/' && Peek(MermaidState, 1) == '*') 
+        {
+            while (!(ActualChar(MermaidState) == '*' && Peek(MermaidState, 1) == '/')) {
+                if (ActualChar(MermaidState) == '\n') 
+                {
+                    MermaidState -> Line++;
+                }
+                Next(MermaidState, 1);
+            }
+            Next(MermaidState, 2);
         }
 
         if (ActualChar(MermaidState) == ' ' || ActualChar(MermaidState) == '\n') 

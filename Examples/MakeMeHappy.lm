@@ -1,4 +1,0 @@
-cont {
-    __TARGET_INT_REGISTERS__ = 8
-    __TARGET_FLOAT_REGISTERS__ = 4
-}

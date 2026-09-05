@@ -67,6 +67,7 @@ int SetupFlounder(char* DirectoryName)
 
         MakeBuiltinFile(MainDirectory, FromStr(".gitignore"), "");
         MakeBuiltinFile(MainDirectory, FromStr(SPECS_NAME), "");
+        MakeBuiltinFile(MainDirectory, FromStr("spec.toml"), "");
 
         MakeBuiltinFile(SourceDirectory, FromStr(BUILT_IN_PROGRAM_FILE), "@main\n    ret 0");
         return 1;
