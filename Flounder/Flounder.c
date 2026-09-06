@@ -45,7 +45,7 @@ int SetupFlounder(char* DirectoryName)
     int CheckCreation = 0;
     String* MainDirectory = FromStr("");
 
-    if (!Is(DirectoryName, "")) {
+    if (!IsEqual(DirectoryName, "")) {
         MainDirectory = FromStr(DirectoryName);
         CheckCreation = mkdir(MainDirectory -> Chars);
         AddStr(MainDirectory, '/');
@@ -106,7 +106,7 @@ int main(int ArgumentCount, char* ArgumentValue[])
 {
     for (int x = 1 ; x < ArgumentCount ; x++) 
     {
-        if (Is(ArgumentValue[x], NEW_KEYWORD)) 
+        if (IsEqual(ArgumentValue[x], NEW_KEYWORD)) 
         {
             int Next = x + 1;
             if (!(Next >= ArgumentCount)) 
@@ -116,29 +116,29 @@ int main(int ArgumentCount, char* ArgumentValue[])
             }
             return 1;
         }
-        else if (Is(ArgumentValue[x], INITIALIZE_KEYWORD)) 
+        else if (IsEqual(ArgumentValue[x], INITIALIZE_KEYWORD)) 
         {
             SetupFlounder("");
             return 0;
         }
-        else if (Is(ArgumentValue[x], HELP_KEYWORD))
+        else if (IsEqual(ArgumentValue[x], HELP_KEYWORD))
         {
             Help();
             return 0;
         } 
         
-        else if (Is(ArgumentValue[x], VERSION_KEYWORD))
+        else if (IsEqual(ArgumentValue[x], VERSION_KEYWORD))
         {
             printf(BLUE "Version <( %s )>\n" RESET, LILMERMAID_VERSION);
             return 0;
         }
 
-        else if (Is(ArgumentValue[x], DOCUMENTATION_KEYWORD))
+        else if (IsEqual(ArgumentValue[x], DOCUMENTATION_KEYWORD))
         {
             Documentation();
             return 0;
         }
-        else if (Is(ArgumentValue[x], BUILD_KEYWORD))
+        else if (IsEqual(ArgumentValue[x], BUILD_KEYWORD))
         {
             ListFolderFiles("src");
             return 0;

@@ -21,7 +21,7 @@ char* Substring(char* String, Usize Start, Usize End)
     return NULL;
 }
 
-Bool Is(const char* Word, const char* Src) {
+Bool IsEqual(const char* Word, const char* Src) {
     if (strcmp(Word, Src) == 0) 
     {
         return True;

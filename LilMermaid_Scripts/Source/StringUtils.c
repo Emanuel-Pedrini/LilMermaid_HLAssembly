@@ -21,7 +21,7 @@ char* Substring(char* String, Usize Start, Usize End)
     return NULL;
 }
 
-Bool Is(const char* Word, const char* Src) {
+Bool IsEqual(const char* Word, const char* Src) {
     if (strcmp(Word, Src) == 0) 
     {
         return True;
@@ -72,6 +72,14 @@ Bool IsNumerical(const char Char)
         return True;
     }
     return False;
+}
+
+Bool IsAnyNumerical(const char Char) {
+    if ((Char >= '0' && Char <= '9') || (Char == '.' || Char == 'x')
+        || ((Char >= 'a' && Char <= 'w') || (Char >= 'A' && Char <= 'W'))) {
+        return True;
+    }
+    return False;    
 }
 
 Bool IsAlphabetic(const char Char)

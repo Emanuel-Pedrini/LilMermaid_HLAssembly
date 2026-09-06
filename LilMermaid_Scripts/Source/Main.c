@@ -6,7 +6,7 @@
 #include "LilMermaid_Scripts/Headers/Parser.h"
 #include "LilMermaid_Scripts/Headers/Cleaner.h"
 #include "LilMermaid_Scripts/Headers/Reader.h"
-#include "LilMermaid_Scripts/Headers/RustLibrary.h"
+#include "LilMermaid_Scripts/Headers/RustScripts.h"
 
 int main(int argc, char* argv[]) {
     CompAttributes* CompilationAttributes = Reader(argc, argv);
@@ -19,5 +19,4 @@ int main(int argc, char* argv[]) {
     Tokenize(&BigGirl, &Tokens);
     Parsenize(&BigGirl, &Tokens);
     RustPrint(24, 57);
-    return 0;
 }

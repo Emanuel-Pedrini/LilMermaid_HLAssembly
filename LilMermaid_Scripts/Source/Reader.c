@@ -56,10 +56,10 @@ CompAttributes* Reader(int NumberOfArguments, char** Arguments)
 }
 
 void ReadCallArgument(CompAttributes* Attributes, char* Argument) {
-    if (Is(Argument, "o") || Is(Argument, "O")) {
+    if (IsEqual(Argument, "o") || IsEqual(Argument, "O")) {
         Attributes -> Target = MACHINE_CODE;
     }
-    else if (Is(Argument, "c") || Is(Argument, "C")) {
+    else if (IsEqual(Argument, "c") || IsEqual(Argument, "C")) {
         Attributes -> Target = C;
     }
 }
