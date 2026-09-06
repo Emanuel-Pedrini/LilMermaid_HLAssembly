@@ -1,5 +1,7 @@
-RustLibrary/target/
-RustLibrary/Cargo.lock
-RustLibrary/Cargo.toml
-External/
-Control/
+Rust_Scripts/target/
+Rust_Scripts/Cargo.lock
+Rust_Scripts/Cargo.toml
+LilMermaid_Scripts/Control
+LilMermaid_Scripts/External
+LilMermaid_Scripts/Headers
+Flounder/Flounder_Headers/

@@ -1,67 +1,80 @@
 def size 64
 def dummy_memory 0x4C00
-go 0x7C00
+offset [0x7C00]
 
 @funny_func()
-    << .reg(1)
-    .reg(1)! 
+    << .reg(1) // << push / >> pop
+    cls .reg(1) 
     .reg(1) = (.reg(2) + .reg(3)) + (.reg(4) as $size) $size
+    ret
 
 @save_char()
-    & (dummy_memory + .reg(2)), .reg(1)
+    & [dummy_memory + .reg(2)], .reg(1) $8 /* Intencional truncate */
     .reg(2) += 1 $64
+    ret
 
 @for()
-    .reg(3) = *.reg(4) $8 ## * means the value in position, when used alone, like C
+    & .reg(3), [.reg(4)] $size 
     .reg(3) != '\0'
-    ## imaginary print func
-    if (.reg(4) ++)
-    if (go for)
+    ? (.reg(4) ++ $64)
+    ? (go for)
+    ret
 
+@infinite_loop()
+    go infinite_loop
 
 @main()
     .reg(1) = 43 $64
     .reg(2) = 958 $64
     .reg(3) = 4590 $size
     .reg(4) = 'c' $(size / 8)
+
+    //Examples
+    .reg(1) <= .reg(2) 
+    .reg(1) >= .reg(2) 
+    .reg(1) == .reg(2)
+
+    .reg(1) -= 43 #flag $size
     
+    // #flag means force flag change, this is a directive, it can be put in any command, im x86 this isn't necessary
+
     funny_func()
     
-    .reg(1) << 17 $size
-    .reg(1) >> 29 $size
-    .reg(1) ^^ (179875 as $size) $size
+    .reg(1) <- 17 $size 
+    .reg(1) -> 29 $size
+    .reg(1) ^= (179875 as $size) $size
+    .reg(1) = .reg(1) << 7 $size
 
-    & 0x4000, .reg(1) ## & now is the operand
+    & [0x4000], .reg(1) $8
 
-    .reg(2)!
-    .reg(1)!
-    .reg(3)!
-    .reg(4)!
+    cls .reg(1)
+    cls .reg(2)
+    cls .reg(3)
+    cls .reg(4)
 
     .reg(2) = 1 $64
 
     .reg(1) = 'H' $8
     save_char()
-
     .reg(1) = 'e' $8
     save_char()
-
     .reg(1) = 'l' $8
     save_char()
-
     .reg(1) = 'l' $8
     save_char()
-
     .reg(1) = 'o' $8
     save_char()
-
     .reg(1) = '\0' $8
     save_char()
 
-    .reg(4) = dummy_memory + 1
+    .reg(4) = dummy_memory + 1 $size
     for()
 
+    let 0xB800 /* Sample interrupt */ 
+    
+    go infinite_loop
+
 // Example
-/*This is a fun language i swear! 
+/* This is a fun language i swear! 
 i'am ain't lying i swear! */
     

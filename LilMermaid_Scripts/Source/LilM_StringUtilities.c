@@ -1,6 +1,6 @@
+#include "LilMermaid_Scripts/Headers/StringUtilities.h"
+#include "LilMermaid_Scripts/Headers/InterpreterTypes.h"
 #include "LilMermaid_Scripts/External/Libraries.h"
-#include "Flounder/Flounder_Headers/Flounder_StringUtilities.h"
-#include "Flounder/Flounder_Headers/Flounder_StringUtilities.h"
 
 char* Substring(char* String, Usize Start, Usize End)
 {

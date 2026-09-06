@@ -1,4 +1,4 @@
-#include "External/Libraries.h"
+#include "LilMermaid_Scripts/External/Libraries.h"
 #include "Flounder/Flounder_Headers/Flounder_StringUtilities.h"
 #include "Control/VersionControl.h"
 
