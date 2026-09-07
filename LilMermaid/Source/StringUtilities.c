@@ -1,6 +1,6 @@
+#include "Headers/StringUtilities.h"
+#include "Headers/InterpreterTypes.h"
 #include "External/Libraries.h"
-#include "Flounder/Flounder_Headers/Flounder_StringUtilities.h"
-#include "Flounder/Flounder_Headers/Flounder_StringUtilities.h"
 
 char* Substring(char* String, Usize Start, Usize End)
 {
@@ -72,6 +72,21 @@ Bool IsNumerical(const char Char)
         return True;
     }
     return False;
+}
+
+Bool IsValidNumerical(const char Char) {
+    if ((Char >= '0' && Char <= '9') || (Char >= 'a' && Char <= 'w') || (Char >= 'A' && Char <= 'W')) {
+        return True;
+    }
+    return False;
+}
+
+Bool IsInvalid(const char Char) 
+{
+    if (Char != '\0') {
+        return False;
+    }
+    return True;
 }
 
 Bool IsAlphabetic(const char Char)

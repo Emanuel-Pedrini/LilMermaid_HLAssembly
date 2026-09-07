@@ -1,5 +1,10 @@
-RustLibrary/target/
-RustLibrary/Cargo.lock
-RustLibrary/Cargo.toml
-External/
-Control/
+LilMermaid/Headers/
+LilMermaid/External/
+Flounder/Control
+Flounder/Headers
+Flounder/Rust/target/
+Flounder/Rust/Cargo.lock
+Flounder/Rust/Cargo.toml
+Flounder/CharUtils.c
+.vscode/
+*.exe

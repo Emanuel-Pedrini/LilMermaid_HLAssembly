@@ -19,7 +19,7 @@ go 0x7C00
     if (go for)
 
 
-@main()
+@burn_baby() \\__MAIN__\\
     .reg(1) = 43 $64
     .reg(2) = 958 $64
     .reg(3) = 4590 $size
