@@ -3,7 +3,7 @@ use std::io::ErrorKind;
 use std::fs::{self, File};
 use std::ops::Add;
 use std::os::raw::{c_char};
-use heck::AsSnakeCase;
+use heck::{AsSnakeCase, ToSnakeCase};
 use crate::FlSpace::Folder;
 
 pub enum FlSpace {
@@ -105,16 +105,17 @@ pub extern "C" fn Rust_CreateFlounder(name : *const c_char)
         _ => { &ptr_to_str(name) }
     };
 
-    let initial_content = &format!("@{}() \\\\__MAIN__\\\\\n    ret 0", used_name);
+    let initial_content = &format!("@{}() \\\\__MAIN__\\\\\n    ret 0", used_name.to_snake_case());
 
     let main =  FlFile::new("main.lm", initial_content);
     let proj =  FlFile::new("proj.toml", "");
     let gitignore =  FlFile::new(".gitignore", "build/");
 
     let src = FlFolder::new("src/", vec![FlSpace::File(main)]);
+    let pasta_legal_aura67 = FlFolder::new("pasta_legal_aura67", vec![]);
+    let pasta_legal_aura69 = FlFolder::new("pasta_legal_aura69", vec![]);
 
-    let build = FlFolder::new("build/", vec![]);
-
+    let build = FlFolder::new("build/", vec![FlSpace::Folder(pasta_legal_aura67), FlSpace::Folder(pasta_legal_aura69)]);
 
     let mut project = FlProjectSpace::new(&root);
     project.add(FlSpace::Folder(src));

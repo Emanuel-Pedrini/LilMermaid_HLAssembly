@@ -4,9 +4,12 @@ typedef enum {
     BINARY = 2,
     //0o
     OCTAL = 8,
+    //
     DECIMAL = 10,
     // 0x
     HEXADECIMAL = 16,
     // 0t
-    DUOTRIGESIONAL = 32
+    DUOTRIGESIONAL = 32,
+    // 0s
+    SEXATRIGESIONAL = 64
 } Base;

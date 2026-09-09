@@ -308,10 +308,6 @@ LM_Token* ReadIndentifier(LexerState* MermaidState)
     }
     char* Word =  Substring(MermaidState -> Code -> Chars, Start, (Start + Length));
     LM_TokenType Type = Indentify(Word);
-
-    // Temporary
-    printf("%s ", Word);
-
     return CreateToken(Type, Start, Length);
 }
 
@@ -336,18 +332,10 @@ LM_Token* ReadNumerical(LexerState* MermaidState)
 {
     int Length = 0;
     Usize Start = MermaidState -> Pointer;
-    Bool Float = False;
     while (IsValidNumerical(MermaidState -> Code -> Chars[Start + Length]) && !IsInvalid(ActualChar(MermaidState))) 
     {
-        if (MermaidState -> Code -> Chars[Start + Length] == '.' && Float == False) { Float = True; }
         Length++;
-        if (MermaidState -> Code -> Chars[Start + Length] == '.' && Float ==  True) { printf("Error (%d) : Wrong FLOAT!", MermaidState -> Line); abort(); }
     }
-    char* Word =  Substring(MermaidState -> Code -> Chars, Start, (Start + Length));
-
-    // Temporary
-    printf("%s ", Word);
-
     return CreateToken(Tk_Integer, Start, Length);
 }
 
@@ -365,10 +353,6 @@ LM_Token* ReadRegister(LexerState* MermaidState)
         Length++;
     }
     char* RegisterName = Substring(MermaidState -> Code -> Chars, Start, (Start + Length));
-    
-    // Temporary
-    printf("%s ", RegisterName);
-
     return CreateToken(Tk_Register, Start, Length);
 }
 

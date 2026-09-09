@@ -1,5 +1,6 @@
 #include "Headers/StringUtilities.h"
 #include "Headers/InterpreterTypes.h"
+#include "Headers/ArrayUtilities.h"
 #include "External/Libraries.h"
 
 char* Substring(char* String, Usize Start, Usize End)
@@ -75,7 +76,7 @@ Bool IsNumerical(const char Char)
 }
 
 Bool IsValidNumerical(const char Char) {
-    if ((Char >= '0' && Char <= '9') || (Char >= 'a' && Char <= 'w') || (Char >= 'A' && Char <= 'W')) {
+    if ((Char >= '0' && Char <= '9') || (Char >= 'a' && Char <= 'z') || (Char >= 'A' && Char <= 'z')) {
         return True;
     }
     return False;
@@ -141,6 +142,7 @@ void NewStr(String* Str)
 {
 
 }
+
 void AddStr(String* Str, const char Char)
 {
     if (Str -> Size + 1 >= Str -> Capacity) {
@@ -157,6 +159,7 @@ void AddStr(String* Str, const char Char)
     Str -> Size++;
     Str -> Chars[Str -> Size] = '\0';
 }
+
 void AppendStr(String* Str, char* Src)
 {
     int Size = strlen(Src);
@@ -164,6 +167,110 @@ void AppendStr(String* Str, char* Src)
     {
         AddStr(Str, Src[x]);
     }
+}
+
+void InsertStr(String* Str, const char Char, Usize Position)
+{
+    if (Str -> Size + 1 >= Str -> Capacity) {
+        Usize NewCapacity = Str -> Capacity * 2 + 1;
+        char* NewChars = realloc(Str -> Chars, NewCapacity * sizeof(char));
+        if (NewChars == NULL) {
+            free(NewChars);
+            return;
+        }
+        Str -> Chars = NewChars;
+        Str -> Capacity = NewCapacity;
+    }
+    for (int x = Str -> Size ; x != Position - 1; x--) {
+        Str -> Chars[x + 1] = Str -> Chars[x];
+    }
+    Str -> Chars[Position] = Char;
+    Str -> Size++;
+}
+
+void PutsStr(String* Str, const char Char, Usize Position)
+{
+    Str -> Chars[Position] = Char;
+}
+
+Vector* FindStr(String* Str, const char* Char) {
+    Vector* Indexs = malloc(sizeof(Vector));
+    New(Indexs, sizeof(Usize));
+
+    int SrcSize = strlen(Char);
+    Bool ContainsSrc = False;
+    for (int x = 0 ; Str -> Chars[x] != '\0' ; x++) {
+        if (Str -> Chars[x] == Char[0]) {
+            Usize px = x;
+            int y = 0;
+            int i = x;
+            while (Str -> Chars[i] == Char[y] && y < SrcSize && Str -> Chars[i] != '\0') {
+                i++;
+                y++;
+            }
+            if (y ==  SrcSize) {
+                Usize end = px + y;
+                ContainsSrc = True;
+                Add(Indexs, &px);
+                Add(Indexs, &end);
+            }
+        }
+    }
+    return Indexs;
+}
+
+void ReplaceStr(String* Str, const char* Char, const char* Replace)
+{
+    Vector* Indexs = FindStr(Str, Char);
+    Usize Matches = Len(Indexs) / 2;
+    String* Result = FromStr("");
+    Usize x = 0;
+    Usize MatchIdx = 0;
+    while (x < Str -> Size) {
+        while (MatchIdx < Matches) {
+            Usize* s = Get(Indexs, MatchIdx * 2);
+            if (*s < x) {
+                MatchIdx++;
+                continue;
+            }
+            break;
+        }
+        if (MatchIdx < Matches) {
+            Usize* s = Get(Indexs, MatchIdx * 2);
+            Usize* e = Get(Indexs, MatchIdx * 2 + 1);
+            if (x == *s) {
+                AppendStr(Result, (char*)Replace);
+                x = *e;
+                MatchIdx ++;
+                continue;
+            }
+        }
+        AddStr(Result, Str -> Chars[x]);
+        x++;
+    }
+    free(Str -> Chars);
+    Str -> Chars = Result -> Chars;
+    Str -> Capacity = Result -> Capacity;
+    Str -> Size = Result -> Size;
+    free(Result);
+}
+
+void ReplaceEquallyStr(String* Str, const char* Char, const char* Replace)
+{
+    Vector* Indexs = FindStr(Str, Char);
+    for (Usize x = 0; x < Len(Indexs); x+=2) {
+        Usize* s = Get(Indexs, x);
+        Usize* e = Get(Indexs, x + 1);
+        Usize w = 0;
+        for (int z = *s ; z != *e; z++) {
+            PutsStr(Str, Replace[w], z);
+            w++;
+        }
+    }
+}
+
+char* Cstring(String* Str) {
+    return Str -> Chars;
 }
 
 String* ConcatStr(String* Str, String* Src) {
